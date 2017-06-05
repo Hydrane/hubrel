@@ -1,6 +1,7 @@
 require 'hubrel/version'
+require 'hubrel/repo'
 
 # start of the module
 module Hubrel
-  # Your code goes here...
+  # specify token
 end
