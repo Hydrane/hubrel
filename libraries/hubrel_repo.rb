@@ -1,8 +1,8 @@
 module Hubrel
   # Code to get necessary info from a GitHub repository
   class Repo
-    require 'hubrel/repo/releases'
-    require 'hubrel/repo/release'
+    require_relative 'hubrel_repo_releases'
+    require_relative 'hubrel_repo_release'
 
     def initialize(owner:, name:, token: nil)
       @owner = owner
@@ -11,7 +11,10 @@ module Hubrel
     end
 
     def releases
-      @releases ||= Releases.new.get
+      require 'json'
+      parsed = JSON.parse(REST.get(path:  "/repos/#{@owner}/#{@name}/releases",
+                                   token: @token))
+      @releases ||= Releases.new.get(array: parsed)
     end
 
     # wrappers around Net::HTTP and the GitHub REST API

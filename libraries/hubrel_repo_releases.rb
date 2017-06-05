@@ -3,16 +3,12 @@ module Hubrel
     # Array of Release with some helpers
     class Releases < Array
       # Get all releases
-      def get
+      def get(array:)
         # idempotency
         clear
 
-        # parse REST body and assign items
-        require 'json'
-        JSON.parse(
-          REST.get(path:  "/repos/#{@owner}/#{@name}/releases",
-                   token: @token)
-        ).each.with_index do |item, index|
+        # go through raw array of releases
+        array.each.with_index do |item, index|
           self[index] = Release.new.get(hash: item)
         end
 
