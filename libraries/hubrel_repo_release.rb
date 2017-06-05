@@ -24,9 +24,9 @@ module Hubrel
         self
       end
 
-      # return the download url of an asset in a release by name
-      def url(asset:)
-        self[:assets].select { |item| item[:name] =~ /#{asset}/ }.first.fetch(:url, nil)
+      # return an asset in a release by name
+      def asset(name:)
+        self[:assets].select { |asset| asset[:name] =~ /#{name}/ }.first
       end
 
       # release is stable if it is not a draft and not a prerelase

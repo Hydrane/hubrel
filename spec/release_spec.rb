@@ -46,8 +46,11 @@ describe Hubrel::Repo::Release do
       expect(
         release.get(
           hash: JSON.parse(File.read("#{File.dirname(__FILE__)}/fixtures/release.json"))
-        ).url(asset: 'hub-windows-386-2.3.0-pre9.zip')
-      ).to eq('https://api.github.com/repos/github/hub/releases/assets/3199660')
+        ).asset(name: 'hub-windows-386.*.zip')
+      ).to eq(id:   3_199_660,
+              name: 'hub-windows-386-2.3.0-pre9.zip',
+              sum:  '289fb0129f0f19639c33ae4d53508a0f788fd198088601bc1bdd5af9840fb780',
+              url:  'https://api.github.com/repos/github/hub/releases/assets/3199660')
     end
   end
 end

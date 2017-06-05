@@ -1,4 +1,6 @@
-remote_file 'hub.tgz' do
+remote_file 'asset' do
+  path     node['pkg']['name']
+  source   node['pkg']['url']
+  checksum node['pkg']['sum']
   headers('Accept' => 'application/octet-stream')
-  source node['pkg_url']
 end
