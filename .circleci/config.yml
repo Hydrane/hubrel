@@ -16,12 +16,13 @@ jobs:
           name: 'Install latest Chef client'
           command: |
             apt-get -y install bash curl > /dev/null
-            curl -L https://omnitruck.chef.io/install.sh | bash
+            curl -L https://chef.io/chef/install.sh | bash
       - checkout
       - run:
           name: 'Verify all deps are satisfied in Chef'
-          # command: /opt/chef/embedded/bin/bundle check
-          command: /opt/chef/embedded/bin/bundle exec gem list
+          command: /opt/chef/embedded/bin/bundle check
       - run:
           name: 'Verify with RSpec from Chef'
-          command: /opt/chef/embedded/bin/rspec
+          command: /opt/chef/embedded/bin/rspec --format RspecJunitFormatter --out /tmp/results/rspec.xml
+      - store_test_results:
+          path: /tmp/results

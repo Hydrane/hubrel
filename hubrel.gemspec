@@ -17,6 +17,6 @@ Gem::Specification.new do |spec|
   spec.files         = Dir['libraries/*'] + %w[README.md LICENSE]
   spec.require_paths = ['libraries']
 
-  # only gems present in Chef should be here
+  # only gems present in Chef may be added as runtime dependencies
   spec.add_development_dependency 'rspec'
 end
