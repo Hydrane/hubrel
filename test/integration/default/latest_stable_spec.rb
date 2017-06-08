@@ -1,5 +1,5 @@
 describe 'package' do
-  it 'is downloaded form the /latest endpoint' do
+  it 'is downloaded from the /releases/latest endpoint' do
     expect(command(
       'curl -o inspec.tgz -LO $(curl -s '\
       'https://api.github.com/repos/github/hub/releases/latest ' \
