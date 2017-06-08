@@ -1,0 +1,27 @@
+---
+version: 2
+jobs:
+  build:
+    working_directory: /tmp/build
+    docker:
+      - image: ubuntu:16.04
+    steps:
+      - run:
+          name: 'Update APT packages'
+          command: apt-get -y update > /dev/null
+      - run:
+          name: 'Install Git and SSH for checkout'
+          command: apt-get -y install git openssh-client > /dev/null
+      - run:
+          name: 'Install latest Chef client'
+          command: |
+            apt-get -y install bash curl > /dev/null
+            curl -L https://omnitruck.chef.io/install.sh | bash
+      - checkout
+      - run:
+          name: 'Verify all deps are satisfied in Chef'
+          # command: /opt/chef/embedded/bin/bundle check
+          command: /opt/chef/embedded/bin/bundle exec gem list
+      - run:
+          name: 'Verify with RSpec from Chef'
+          command: /opt/chef/embedded/bin/rspec
